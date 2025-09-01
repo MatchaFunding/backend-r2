@@ -2,9 +2,8 @@
 #include <stdlib.h>
 #include <string.h>
 #include <cjson/cJSON.h>
-#include "instrumento_json.h"
 
-cJSON* instrumento_into_json(instrumento *obj) {
+cJSON* InstrumentoIntoJSON(Instrumento *obj) {
     if (!obj) return NULL;
     cJSON *json = cJSON_CreateObject();
     cJSON_AddNumberToObject(json, "ID", obj->ID);
@@ -27,11 +26,11 @@ cJSON* instrumento_into_json(instrumento *obj) {
     return json;
 }
 
-instrumento* instrumento_from_json(const char *json_str) {
+Instrumento* InstrumentoFromJSON(const char *json_str) {
     if (!json_str) return NULL;
     cJSON *json = cJSON_Parse(json_str);
     if (!json) return NULL;
-    instrumento *obj = malloc(sizeof(instrumento));
+    Instrumento *obj = malloc(sizeof(Instrumento));
     if (!obj) { cJSON_Delete(json); return NULL; }
     cJSON *j_ID = cJSON_GetObjectItemCaseSensitive(json, "ID");
     if (cJSON_IsNumber(j_ID)) obj->ID = j_ID->valuedouble;

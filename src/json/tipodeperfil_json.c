@@ -2,9 +2,8 @@
 #include <stdlib.h>
 #include <string.h>
 #include <cjson/cJSON.h>
-#include "tipodeperfil_json.h"
 
-cJSON* tipodeperfil_into_json(tipodeperfil *obj) {
+cJSON* TipoDePerfilIntoJSON(TipoDePerfil *obj) {
     if (!obj) return NULL;
     cJSON *json = cJSON_CreateObject();
     cJSON_AddNumberToObject(json, "ID", obj->ID);
@@ -13,11 +12,11 @@ cJSON* tipodeperfil_into_json(tipodeperfil *obj) {
     return json;
 }
 
-tipodeperfil* tipodeperfil_from_json(const char *json_str) {
+TipoDePerfil* TipoDePerfilFromJSON(const char *json_str) {
     if (!json_str) return NULL;
     cJSON *json = cJSON_Parse(json_str);
     if (!json) return NULL;
-    tipodeperfil *obj = malloc(sizeof(tipodeperfil));
+    TipoDePerfil *obj = malloc(sizeof(TipoDePerfil));
     if (!obj) { cJSON_Delete(json); return NULL; }
     cJSON *j_ID = cJSON_GetObjectItemCaseSensitive(json, "ID");
     if (cJSON_IsNumber(j_ID)) obj->ID = j_ID->valuedouble;

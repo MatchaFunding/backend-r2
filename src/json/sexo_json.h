@@ -1,5 +1,5 @@
-#include "../model/sexo.h"
 #include <cjson/cJSON.h>
+#include "../model/sexo.h"
 
-cJSON* sexo_into_json(sexo *obj);
-sexo* sexo_from_json(const char *json_str);
+cJSON* SexoIntoJSON(Sexo *obj);
+Sexo* SexoFromJSON(const char *json_str);

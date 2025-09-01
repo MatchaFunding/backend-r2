@@ -2,9 +2,8 @@
 #include <stdlib.h>
 #include <string.h>
 #include <cjson/cJSON.h>
-#include "idea_json.h"
 
-cJSON* idea_into_json(idea *obj) {
+cJSON* IdeaIntoJSON(Idea *obj) {
     if (!obj) return NULL;
     cJSON *json = cJSON_CreateObject();
     cJSON_AddNumberToObject(json, "ID", obj->ID);
@@ -16,11 +15,11 @@ cJSON* idea_into_json(idea *obj) {
     return json;
 }
 
-idea* idea_from_json(const char *json_str) {
+Idea* IdeaFromJSON(const char *json_str) {
     if (!json_str) return NULL;
     cJSON *json = cJSON_Parse(json_str);
     if (!json) return NULL;
-    idea *obj = malloc(sizeof(idea));
+    Idea *obj = malloc(sizeof(Idea));
     if (!obj) { cJSON_Delete(json); return NULL; }
     cJSON *j_ID = cJSON_GetObjectItemCaseSensitive(json, "ID");
     if (cJSON_IsNumber(j_ID)) obj->ID = j_ID->valuedouble;

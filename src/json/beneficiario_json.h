@@ -1,5 +1,5 @@
-#include "../model/beneficiario.h"
 #include <cjson/cJSON.h>
+#include "../model/beneficiario.h"
 
-cJSON* beneficiario_into_json(beneficiario *obj);
-beneficiario* beneficiario_from_json(const char *json_str);
+cJSON* BeneficiarioIntoJSON(Beneficiario *obj);
+Beneficiario* BeneficiarioFromJSON(const char *json_str);

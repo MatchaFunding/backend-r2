@@ -1,2 +1,2 @@
 all:
-	gcc main.c -lm -o out 
+	gcc json/*.c sql/*.c main.c -o out

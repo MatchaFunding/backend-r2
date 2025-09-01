@@ -1,5 +1,5 @@
 typedef struct {
-    long long id;
-    long long primerbeneficiario;
-    long long segundobeneficiario;
-} consorcio;
+    long long ID;
+    long long PrimerBeneficiario;
+    long long SegundoBeneficiario;
+} Consorcio;

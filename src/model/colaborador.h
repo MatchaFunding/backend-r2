@@ -1,5 +1,5 @@
 typedef struct {
-    long long id;
-    long long persona;
-    long long proyecto;
-} colaborador;
+    long long ID;
+    long long Persona;
+    long long Proyecto;
+} Colaborador;

@@ -1,5 +1,5 @@
-#include "../model/colaborador.h"
 #include <cjson/cJSON.h>
+#include "../model/colaborador.h"
 
-cJSON* colaborador_into_json(colaborador *obj);
-colaborador* colaborador_from_json(const char *json_str);
+cJSON* ColaboradorIntoJSON(Colaborador *obj);
+Colaborador* ColaboradorFromJSON(const char *json_str);

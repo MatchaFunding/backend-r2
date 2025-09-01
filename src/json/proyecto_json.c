@@ -2,9 +2,8 @@
 #include <stdlib.h>
 #include <string.h>
 #include <cjson/cJSON.h>
-#include "proyecto_json.h"
 
-cJSON* proyecto_into_json(proyecto *obj) {
+cJSON* ProyectoIntoJSON(Proyecto *obj) {
     if (!obj) return NULL;
     cJSON *json = cJSON_CreateObject();
     cJSON_AddNumberToObject(json, "ID", obj->ID);
@@ -18,11 +17,11 @@ cJSON* proyecto_into_json(proyecto *obj) {
     return json;
 }
 
-proyecto* proyecto_from_json(const char *json_str) {
+Proyecto* ProyectoFromJSON(const char *json_str) {
     if (!json_str) return NULL;
     cJSON *json = cJSON_Parse(json_str);
     if (!json) return NULL;
-    proyecto *obj = malloc(sizeof(proyecto));
+    Proyecto *obj = malloc(sizeof(Proyecto));
     if (!obj) { cJSON_Delete(json); return NULL; }
     cJSON *j_ID = cJSON_GetObjectItemCaseSensitive(json, "ID");
     if (cJSON_IsNumber(j_ID)) obj->ID = j_ID->valuedouble;

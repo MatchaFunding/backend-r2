@@ -1,7 +1,7 @@
 typedef struct {
-    long long id;
-    char nombredeusuario[200];
-    char contrasena[200];
-    char correo[200];
-    long long persona;
-} usuario;
+    long long ID;
+    char NombreDeUsuario[200];
+    char Contrasena[200];
+    char Correo[200];
+    long long Persona;
+} Usuario;

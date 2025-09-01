@@ -1,5 +1,5 @@
-#include "../model/proyecto.h"
 #include <cjson/cJSON.h>
+#include "../model/proyecto.h"
 
-cJSON* proyecto_into_json(proyecto *obj);
-proyecto* proyecto_from_json(const char *json_str);
+cJSON* ProyectoIntoJSON(Proyecto *obj);
+Proyecto* ProyectoFromJSON(const char *json_str);

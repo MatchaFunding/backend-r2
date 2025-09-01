@@ -2,9 +2,8 @@
 #include <stdlib.h>
 #include <string.h>
 #include <cjson/cJSON.h>
-#include "miembro_json.h"
 
-cJSON* miembro_into_json(miembro *obj) {
+cJSON* MiembroIntoJSON(Miembro *obj) {
     if (!obj) return NULL;
     cJSON *json = cJSON_CreateObject();
     cJSON_AddNumberToObject(json, "ID", obj->ID);
@@ -13,11 +12,11 @@ cJSON* miembro_into_json(miembro *obj) {
     return json;
 }
 
-miembro* miembro_from_json(const char *json_str) {
+Miembro* MiembroFromJSON(const char *json_str) {
     if (!json_str) return NULL;
     cJSON *json = cJSON_Parse(json_str);
     if (!json) return NULL;
-    miembro *obj = malloc(sizeof(miembro));
+    Miembro *obj = malloc(sizeof(Miembro));
     if (!obj) { cJSON_Delete(json); return NULL; }
     cJSON *j_ID = cJSON_GetObjectItemCaseSensitive(json, "ID");
     if (cJSON_IsNumber(j_ID)) obj->ID = j_ID->valuedouble;

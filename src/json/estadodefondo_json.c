@@ -2,9 +2,8 @@
 #include <stdlib.h>
 #include <string.h>
 #include <cjson/cJSON.h>
-#include "estadodefondo_json.h"
 
-cJSON* estadodefondo_into_json(estadodefondo *obj) {
+cJSON* EstadoDeFondoIntoJSON(EstadoDeFondo *obj) {
     if (!obj) return NULL;
     cJSON *json = cJSON_CreateObject();
     cJSON_AddNumberToObject(json, "ID", obj->ID);
@@ -13,11 +12,11 @@ cJSON* estadodefondo_into_json(estadodefondo *obj) {
     return json;
 }
 
-estadodefondo* estadodefondo_from_json(const char *json_str) {
+EstadoDeFondo* EstadoDeFondoFromJSON(const char *json_str) {
     if (!json_str) return NULL;
     cJSON *json = cJSON_Parse(json_str);
     if (!json) return NULL;
-    estadodefondo *obj = malloc(sizeof(estadodefondo));
+    EstadoDeFondo *obj = malloc(sizeof(EstadoDeFondo));
     if (!obj) { cJSON_Delete(json); return NULL; }
     cJSON *j_ID = cJSON_GetObjectItemCaseSensitive(json, "ID");
     if (cJSON_IsNumber(j_ID)) obj->ID = j_ID->valuedouble;

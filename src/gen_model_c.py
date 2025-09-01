@@ -1,9 +1,8 @@
-#!/usr/bin/env python3
 import re
 import os
 import sys
 
-# --- Simple mapping from SQL types to C types ---
+# Dictionary for converting from MySQL types to C types
 SQL_TO_C = {
     "bigint": "long long",
     "int": "int",
@@ -14,6 +13,7 @@ SQL_TO_C = {
     "double": "double"
 }
 
+# Determines the equivalent C type of a variable using regular expressions
 def sql_to_c_type(sql_type):
     sql_type = sql_type.lower().strip()
     match = re.match(r"(varchar|char)\((\d+)\)", sql_type)
@@ -24,6 +24,7 @@ def sql_to_c_type(sql_type):
             return SQL_TO_C[key]
     return "char*"
 
+# Determines the length of a character array using regular expressions
 def sql_to_c_size(sql_type):
     sql_type = sql_type.lower().strip()
     match = re.match(r"(varchar|char)\((\d+)\)", sql_type)
@@ -36,7 +37,7 @@ def sql_to_c_size(sql_type):
         return f"[10]"
     return ""
 
-# Regular expression to find CREATE TABLE statements
+# Extracts the tables from a table definition
 def extract_tables(sql_text):
     tables = {}
     create_table_pattern = re.compile(
@@ -44,7 +45,7 @@ def extract_tables(sql_text):
         re.S | re.I
     )
     for match in create_table_pattern.finditer(sql_text):
-        table_name = match.group(1).lower()
+        table_name = match.group(1)
         body = match.group(2)
         columns = []
         for line in body.split(","):
@@ -54,12 +55,13 @@ def extract_tables(sql_text):
             parts = line.split()
             col_type = parts[1]
             c_size = sql_to_c_size(col_type)
-            col_name = parts[0].strip("`").lower() + c_size
+            col_name = parts[0].strip("`") + c_size
             c_type = sql_to_c_type(col_type)
             columns.append((col_name, c_type))
         tables[table_name] = columns
     return tables
 
+# Generates a C struct by parsing the database dump file in .sql
 def generate_struct(table, columns):
     struct_lines = [f"typedef struct {{"]
     for col, ctype in columns:
@@ -67,23 +69,21 @@ def generate_struct(table, columns):
     struct_lines.append(f"}} {table};\n")
     return "\n".join(struct_lines)
 
+# Simple Python script that reads a MariaDB database dump and generated
+# C structs for backend manipulation
 def main():
     if len(sys.argv) < 2:
         print("Usage: python gen_structs_c.py database.sql")
         sys.exit(1)
-
     sql_file = sys.argv[1]
     with open(sql_file, "r", encoding="utf-8") as f:
         sql_text = f.read()
-
     os.makedirs("model", exist_ok=True)
     tables = extract_tables(sql_text)
-
     for table, columns in tables.items():
         struct_code = generate_struct(table, columns)
-        file_path = os.path.join("model", f"{table}.h")
+        file_path = os.path.join("model", f"{table.lower()}.h")
         with open(file_path, "w") as f:
-            #f.write("#pragma once\n\n")
             f.write(struct_code)
         print(f"Generated {file_path}")
 

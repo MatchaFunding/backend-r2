@@ -1,5 +1,5 @@
-#include "../model/tipodeempresa.h"
 #include <cjson/cJSON.h>
+#include "../model/tipodeempresa.h"
 
-cJSON* tipodeempresa_into_json(tipodeempresa *obj);
-tipodeempresa* tipodeempresa_from_json(const char *json_str);
+cJSON* TipoDeEmpresaIntoJSON(TipoDeEmpresa *obj);
+TipoDeEmpresa* TipoDeEmpresaFromJSON(const char *json_str);

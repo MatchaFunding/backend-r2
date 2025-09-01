@@ -31,7 +31,7 @@ def extract_tables(sql_text):
         re.S | re.I
     )
     for match in create_table_pattern.finditer(sql_text):
-        table_name = match.group(1).lower()
+        table_name = match.group(1)
         body = match.group(2)
         columns = []
         for line in body.split(","):
@@ -48,12 +48,11 @@ def extract_tables(sql_text):
 
 def generate_header(table, columns):
     h_lines = []
-    #h_lines.append("#pragma once")
-    h_lines.append('#include "../model/{}.h"'.format(table))
     h_lines.append("#include <cjson/cJSON.h>")
+    h_lines.append(f"#include \"../model/{table.lower()}.h\"")
     h_lines.append("")
-    h_lines.append(f"cJSON* {table}_into_json({table} *obj);")
-    h_lines.append(f"{table}* {table}_from_json(const char *json_str);")
+    h_lines.append(f"cJSON* {table}IntoJSON({table} *obj);")
+    h_lines.append(f"{table}* {table}FromJSON(const char *json_str);")
     h_lines.append("")
     return "\n".join(h_lines)
 
@@ -63,11 +62,10 @@ def generate_source(table, columns):
     c_lines.append('#include <stdlib.h>')
     c_lines.append('#include <string.h>')
     c_lines.append('#include <cjson/cJSON.h>')
-    c_lines.append(f'#include "{table}_json.h"')
     c_lines.append("")
 
     # into_json
-    c_lines.append(f"cJSON* {table}_into_json({table} *obj) {{")
+    c_lines.append(f"cJSON* {table}IntoJSON({table} *obj) {{")
     c_lines.append("    if (!obj) return NULL;")
     c_lines.append("    cJSON *json = cJSON_CreateObject();")
     for col, ctype in columns:
@@ -86,7 +84,7 @@ def generate_source(table, columns):
     c_lines.append("")
 
     # from_json
-    c_lines.append(f"{table}* {table}_from_json(const char *json_str) {{")
+    c_lines.append(f"{table}* {table}FromJSON(const char *json_str) {{")
     c_lines.append("    if (!json_str) return NULL;")
     c_lines.append("    cJSON *json = cJSON_Parse(json_str);")
     c_lines.append("    if (!json) return NULL;")
@@ -130,11 +128,11 @@ def main():
     for table, columns in tables.items():
         h_code = generate_header(table, columns)
         c_code = generate_source(table, columns)
-        with open(f"json/{table}_json.h", "w") as f:
+        with open(f"json/{table.lower()}_json.h", "w") as f:
             f.write(h_code)
-        with open(f"json/{table}_json.c", "w") as f:
+        with open(f"json/{table.lower()}_json.c", "w") as f:
             f.write(c_code)
-        print(f"Generated json/{table}_json.h and json/{table}_json.c")
+        print(f"Generated json/{table.lower()}_json.h and json/{table.lower()}_json.c")
 
 if __name__ == "__main__":
     main()

@@ -1,5 +1,5 @@
 typedef struct {
-    long long id;
-    char codigo[4];
-    char nombre[50];
-} tipodeempresa;
+    long long ID;
+    char Codigo[4];
+    char Nombre[50];
+} TipoDeEmpresa;

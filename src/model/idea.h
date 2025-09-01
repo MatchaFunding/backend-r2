@@ -1,8 +1,8 @@
 typedef struct {
-    long long id;
-    long long usuario;
-    char campo[1000];
-    char problema[1000];
-    char publico[1000];
-    char innovacion[1000];
-} idea;
+    long long ID;
+    long long Usuario;
+    char Campo[1000];
+    char Problema[1000];
+    char Publico[1000];
+    char Innovacion[1000];
+} Idea;

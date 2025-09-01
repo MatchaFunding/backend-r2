@@ -2,9 +2,8 @@
 #include <stdlib.h>
 #include <string.h>
 #include <cjson/cJSON.h>
-#include "region_json.h"
 
-cJSON* region_into_json(region *obj) {
+cJSON* RegionIntoJSON(Region *obj) {
     if (!obj) return NULL;
     cJSON *json = cJSON_CreateObject();
     cJSON_AddNumberToObject(json, "ID", obj->ID);
@@ -13,11 +12,11 @@ cJSON* region_into_json(region *obj) {
     return json;
 }
 
-region* region_from_json(const char *json_str) {
+Region* RegionFromJSON(const char *json_str) {
     if (!json_str) return NULL;
     cJSON *json = cJSON_Parse(json_str);
     if (!json) return NULL;
-    region *obj = malloc(sizeof(region));
+    Region *obj = malloc(sizeof(Region));
     if (!obj) { cJSON_Delete(json); return NULL; }
     cJSON *j_ID = cJSON_GetObjectItemCaseSensitive(json, "ID");
     if (cJSON_IsNumber(j_ID)) obj->ID = j_ID->valuedouble;

@@ -1,5 +1,5 @@
-#include "../model/tipodeperfil.h"
 #include <cjson/cJSON.h>
+#include "../model/tipodeperfil.h"
 
-cJSON* tipodeperfil_into_json(tipodeperfil *obj);
-tipodeperfil* tipodeperfil_from_json(const char *json_str);
+cJSON* TipoDePerfilIntoJSON(TipoDePerfil *obj);
+TipoDePerfil* TipoDePerfilFromJSON(const char *json_str);

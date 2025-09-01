@@ -2,9 +2,8 @@
 #include <stdlib.h>
 #include <string.h>
 #include <cjson/cJSON.h>
-#include "financiador_json.h"
 
-cJSON* financiador_into_json(financiador *obj) {
+cJSON* FinanciadorIntoJSON(Financiador *obj) {
     if (!obj) return NULL;
     cJSON *json = cJSON_CreateObject();
     cJSON_AddNumberToObject(json, "ID", obj->ID);
@@ -20,11 +19,11 @@ cJSON* financiador_into_json(financiador *obj) {
     return json;
 }
 
-financiador* financiador_from_json(const char *json_str) {
+Financiador* FinanciadorFromJSON(const char *json_str) {
     if (!json_str) return NULL;
     cJSON *json = cJSON_Parse(json_str);
     if (!json) return NULL;
-    financiador *obj = malloc(sizeof(financiador));
+    Financiador *obj = malloc(sizeof(Financiador));
     if (!obj) { cJSON_Delete(json); return NULL; }
     cJSON *j_ID = cJSON_GetObjectItemCaseSensitive(json, "ID");
     if (cJSON_IsNumber(j_ID)) obj->ID = j_ID->valuedouble;

@@ -1,12 +1,12 @@
 typedef struct {
-    long long id;
-    char nombre[100];
-    char fechadecreacion;
-    long long regiondecreacion;
-    char direccion[300];
-    long long tipodepersona;
-    long long tipodeempresa;
-    long long perfil;
-    char rutdeempresa[12];
-    char rutderepresentante[12];
-} beneficiario;
+    long long ID;
+    char Nombre[100];
+    char FechaDeCreacion;
+    long long RegionDeCreacion;
+    char Direccion[300];
+    long long TipoDePersona;
+    long long TipoDeEmpresa;
+    long long Perfil;
+    char RUTdeEmpresa[12];
+    char RUTdeRepresentante[12];
+} Beneficiario;

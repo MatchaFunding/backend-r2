@@ -1,5 +1,5 @@
-#include "../model/miembro.h"
 #include <cjson/cJSON.h>
+#include "../model/miembro.h"
 
-cJSON* miembro_into_json(miembro *obj);
-miembro* miembro_from_json(const char *json_str);
+cJSON* MiembroIntoJSON(Miembro *obj);
+Miembro* MiembroFromJSON(const char *json_str);

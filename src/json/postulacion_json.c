@@ -2,9 +2,8 @@
 #include <stdlib.h>
 #include <string.h>
 #include <cjson/cJSON.h>
-#include "postulacion_json.h"
 
-cJSON* postulacion_into_json(postulacion *obj) {
+cJSON* PostulacionIntoJSON(Postulacion *obj) {
     if (!obj) return NULL;
     cJSON *json = cJSON_CreateObject();
     cJSON_AddNumberToObject(json, "ID", obj->ID);
@@ -19,11 +18,11 @@ cJSON* postulacion_into_json(postulacion *obj) {
     return json;
 }
 
-postulacion* postulacion_from_json(const char *json_str) {
+Postulacion* PostulacionFromJSON(const char *json_str) {
     if (!json_str) return NULL;
     cJSON *json = cJSON_Parse(json_str);
     if (!json) return NULL;
-    postulacion *obj = malloc(sizeof(postulacion));
+    Postulacion *obj = malloc(sizeof(Postulacion));
     if (!obj) { cJSON_Delete(json); return NULL; }
     cJSON *j_ID = cJSON_GetObjectItemCaseSensitive(json, "ID");
     if (cJSON_IsNumber(j_ID)) obj->ID = j_ID->valuedouble;

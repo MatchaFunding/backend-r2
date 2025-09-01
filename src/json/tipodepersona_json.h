@@ -1,5 +1,5 @@
-#include "../model/tipodepersona.h"
 #include <cjson/cJSON.h>
+#include "../model/tipodepersona.h"
 
-cJSON* tipodepersona_into_json(tipodepersona *obj);
-tipodepersona* tipodepersona_from_json(const char *json_str);
+cJSON* TipoDePersonaIntoJSON(TipoDePersona *obj);
+TipoDePersona* TipoDePersonaFromJSON(const char *json_str);
