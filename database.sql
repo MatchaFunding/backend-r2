@@ -160,15 +160,15 @@ CREATE TABLE Beneficiario (
 /* 
 Funcion que permite crear un nuevo beneficiario a partir de argumentos dados.
 CALL CrearBeneficiario(
-Nombre
-FechaDeCreacion
-RegionDeCreacion
-Direccion
-TipoDePersona
-TipoDeEmpresa
-Perfil
-RUTdeEmpresa
-RUTdeRepresentante
+	Nombre
+	FechaDeCreacion
+	RegionDeCreacion
+	Direccion
+	TipoDePersona
+	TipoDeEmpresa
+	Perfil
+	RUTdeEmpresa
+	RUTdeRepresentante
 );
 */
 DELIMITER $$
@@ -513,6 +513,11 @@ CREATE TABLE Idea (
 	PRIMARY KEY (ID),
 	FOREIGN KEY (Usuario) REFERENCES Usuario(ID)
 );
+
+INSERT INTO Financiador VALUES
+(1,'ANID','2005-06-23',7','N/A',1,1,3,'60.915.000-9','14.131.587-0'),
+(2,'CORFO','2005-06-23',7,'N/A',1,1,3,'60.706.000-2','7.839.379-3'),
+(3,'FondosGob','2005-06-23',7,'N/A',1,1,3,'60.801.000-9','60.801.000-9');
 
 INSERT INTO Beneficiario VALUES
 (1,'ASOCIACION CHILE DISENO ASOCIACION GREMIAL','2025-01-01',17,'N/A',2,4,1,'507412300','507412300'),
