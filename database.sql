@@ -360,10 +360,10 @@ Clase que representa a un usuario de MatchaFunding.
 */
 CREATE TABLE Usuario (
 	ID bigint NOT NULL AUTO_INCREMENT,
-	NombreDeUsuario varchar(200) NOT NULL,
+	NombreDeUsuario varchar(200),
 	Contrasena varchar(200) NOT NULL,
 	Correo varchar(200) NOT NULL,
-	Persona bigint NOT NULL,
+	Persona bigint,
 	PRIMARY KEY (ID),
 	FOREIGN KEY (Persona) REFERENCES Persona(ID)
 );
