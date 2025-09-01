@@ -2,17 +2,18 @@
 #include <string.h>
 #include <stdio.h>
 #include <mysql.h>
-#include "util.h"
+#include "h_files.h"
+
+#define DB "MatchaFundingMySQL"
 
 int main() {
-	char db[] = "MatchaFundingMySQL";
 	char *host = getenv("MATCHA_HOST");
 	char *user = getenv("MATCHA_USER");
 	char *pass = getenv("MATCHA_PASS");
 
 	MYSQL *con = mysql_init(NULL);
 
-	if (mysql_real_connect(con, host, user, pass, db, 0, NULL, 0) == NULL) {
+	if (mysql_real_connect(con, host, user, pass, DB, 0, NULL, 0) == NULL) {
 		fprintf(stderr, "%s\n", mysql_error(con));
 		mysql_close(con);
 		exit(1);
@@ -48,6 +49,7 @@ int main() {
 		printf("Beneficiario: %s\n", b[r].Nombre);
 	}
 
+	free(b);
 	mysql_free_result(res);
 	mysql_close(con);
 	return 0;
