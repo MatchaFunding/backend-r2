@@ -1,6 +1,6 @@
 HEADER=util.h
 rm util.h
-for file in sql/*.h
+for file in model/*.h
 do
     echo -e "#include \"$file\"" >> $HEADER
 done

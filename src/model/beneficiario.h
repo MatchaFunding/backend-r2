@@ -1,7 +1,7 @@
 typedef struct {
     long long ID;
     char Nombre[100];
-    char FechaDeCreacion;
+    char FechaDeCreacion[10];
     long long RegionDeCreacion;
     char Direccion[300];
     long long TipoDePersona;

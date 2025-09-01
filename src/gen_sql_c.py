@@ -68,10 +68,10 @@ def generate_files(table, columns):
     with open(header_file, "w") as h:
         h.write(f"#ifndef {table.upper()}_SQL_H\n")
         h.write(f"#define {table.upper()}_SQL_H\n\n")
-        h.write("#include <mysql/mysql.h>\n")
+        h.write("#include <mysql.h>\n")
         h.write("#include <stdlib.h>\n")
-        h.write("#include <string.h>\n\n")
-        h.write(f"#include \"../json/{table.lower()}_json.h\"\n\n")
+        h.write("#include <string.h>\n")
+        h.write("\n")
         h.write(f"{struct_name}* ViewALL{table}(int* count);\n")
         h.write(f"{struct_name} Create{table}(")
         h.write(", ".join(f"{sql_to_c_type(t)} {c}" for c, t in columns if c.lower() != "id"))
