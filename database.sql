@@ -497,11 +497,106 @@ CREATE TABLE Instrumento (
 	Financiador bigint NOT NULL,    
 	PRIMARY KEY (ID),
 	FOREIGN KEY (Alcance) REFERENCES Region(ID),
-	FOREIGN KEY (Financiador) REFERENCES Financiador(ID),
 	FOREIGN KEY (Estado) REFERENCES EstadoDeFondo(ID),
 	FOREIGN KEY (TipoDeBeneficio) REFERENCES TipoDeBeneficio(ID),
-	FOREIGN KEY (TipoDePerfil) REFERENCES TipoDePerfil(ID)
+	FOREIGN KEY (TipoDePerfil) REFERENCES TipoDePerfil(ID),
+	FOREIGN KEY (Financiador) REFERENCES Financiador(ID)
 );
+
+/* 
+Funcion que permite crear un nuevo beneficiario a partir de argumentos dados.
+CALL CrearInstrumento(
+	Titulo
+	Alcance
+	Descripcion
+	FechaDeApertura
+	FechaDeCierre
+	DuracionEnMeses
+	Beneficios
+	Requisitos
+	MontoMinimo
+	MontoMaximo
+	Estado
+	TipoDeBeneficio
+	TipoDePerfil
+	EnlaceDelDetalle
+	Financiador
+);
+*/
+
+DELIMITER $$
+CREATE PROCEDURE CrearInstrumento (
+	IN ti varchar(200),
+	IN al date,
+	IN ds varchar(1000),
+	IN fa date,
+	IN fc date,
+	IN du int,
+	IN be varchar(1000),
+	IN rq varchar(1000),
+	IN mi int,
+	IN ma int,
+	IN es varchar(100),
+	IN tb varchar(100),
+	IN tp varchar(100),
+	IN ed varchar(100),
+	IN ef varchar(100),
+	IN fi varchar(100)
+)
+BEGIN
+	DECLARE alcance bigint;
+	DECLARE estado bigint;
+	DECLARE tipo_beneficio bigint;
+	DECLARE tipo_perfil bigint;
+	DECLARE financiador bigint;
+
+	SELECT ID FROM Alcance WHERE al=Nombre INTO alcance;
+	SELECT ID FROM EstadoDeFondo WHERE es=Nombre INTO estado;
+	SELECT ID FROM TipoDeBeneficio WHERE tb=Nombre INTO tipo_beneficio;
+	SELECT ID FROM TipoDePerfil WHERE tp=Nombre INTO tipo_perfil;
+	SELECT ID FROM Financiador WHERE fi=Nombre INTO financiador;
+
+	IF NOT alcance=0 AND NOT estado=0 AND NOT tipo_beneficio=0
+        AND NOT tipo_perfil=0 AND NOT financiador=0
+	THEN
+		INSERT INTO Instrumento (
+			Titulo,
+			Alcance,
+			Descripcion,
+			FechaDeApertura,
+			FechaDeCierre,
+			DuracionEnMeses,
+			Beneficios,
+			Requisitos,
+			MontoMinimo,
+			MontoMaximo,
+			Estado,
+			TipoDeBeneficio,
+			TipoDePerfil,
+			EnlaceDelDetalle,
+			Financiador
+		) 
+		VALUES (
+			ti,
+			alcance,
+			ds,
+			fa,
+			fc,
+			du,
+			be,
+			rq,
+			mi,
+			ma,
+			estado,
+			tipo_beneficio,
+			tipo_perfil,
+			ed,
+			ef,
+			financiador
+		);
+	END IF;
+END$$
+DELIMITER ;
 
 /*
 Clase que representa las postulaciones de un proyecto a un fondo
@@ -620,9 +715,6 @@ VALUES
 	(73,'FUND CIENTIFICA Y CULTURAL BIOCIENCIA','2025-01-01',17,'N/A',2,4,1,'650612108','650612108'),
 	(74,'CORPORACION PARA EL DESARROLLO DE MALLECO','2025-01-01',17,'N/A',2,4,1,'65062346-0','65062346-0'),
 	(75,'CORPORACION CULTURAL ACONCAGUA SUMMIT','2025-01-01',17,'N/A',2,4,1,'65064666-5','65064666-5'),
-	(76,'CORPORACION MUNICIPAL DE LA CULTURA Y LAS ARTES DE SAN ANTONIO','2025-01-01',17,'N/A',2,4,1,'65065493-5','65065493-5'),
-	(77,'AGRUPACION ACERCA REDES MARIQUINA','2025-01-01',17,'N/A',2,4,1,'650661257','650661257'),
-	(78,'ASOCIACION GREMIAL DE RENOVADORES Y RECAUCHADORES DE NEUMATICOS DE CHILE','2025-01-01',17,'N/A',2,4,1,'65066579-1','65066579-1'),
 	(79,'ASOCIACION INDIGENA AYMARA SUMA JUIRA DE CARIQUIMA','2025-01-01',17,'N/A',2,4,1,'650694422','650694422'),
 	(80,'FUNDACION DEPORTE LIBRE','2025-01-01',17,'N/A',2,4,1,'650707044','650707044'),
 	(81,'FUNDACION PARA EL TRABAJO UNIVERSIDAD ARTURO PRAT','2025-01-01',17,'N/A',2,4,1,'650718593','650718593'),
