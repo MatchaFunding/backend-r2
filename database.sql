@@ -191,10 +191,14 @@ BEGIN
 	DECLARE rut_empresa bigint;
 	DECLARE rut_persona bigint;
 
+	-- Busca si la region, tipo de persona, empresa y perfil son validos por nombre
+	-- Si existen, se crea el instrumento con el ID correspondiente
 	SELECT ID FROM Region WHERE rc=Nombre OR rc=Codigo INTO region;
 	SELECT ID FROM TipoDePersona WHERE tp=Nombre OR tp=Codigo INTO tipo_persona;
 	SELECT ID FROM TipoDeEmpresa WHERE te=Nombre OR te=Codigo INTO tipo_empresa;
 	SELECT ID FROM TipoDePerfil WHERE pe=Nombre OR pe=Codigo INTO tipo_perfil;
+
+	-- Se valida el formato de el RUT
 	SELECT re REGEXP '[0-9]{1,2}[\.]{0,1}[0-9]{3}[\.]{0,1}[0-9]{3}[\-]{0,1}[0-9|K|k]{1}' INTO rut_empresa;
 	SELECT rp REGEXP '[0-9]{1,2}[\.]{0,1}[0-9]{3}[\.]{0,1}[0-9]{3}[\-]{0,1}[0-9|K|k]{1}' INTO rut_persona;
 
@@ -550,11 +554,13 @@ BEGIN
 	DECLARE tipo_beneficio bigint;
 	DECLARE tipo_perfil bigint;
 
+	-- Busca si la region, estado de fondo, tipo de beneficio y perfil son validos por nombre
 	SELECT ID FROM Region WHERE al=Nombre OR al=Codigo INTO alcance;
 	SELECT ID FROM EstadoDeFondo WHERE es=Nombre OR es=Codigo INTO estado;
 	SELECT ID FROM TipoDeBeneficio WHERE tb=Nombre OR tb=Codigo INTO tipo_beneficio;
 	SELECT ID FROM TipoDePerfil WHERE tp=Nombre OR tp=Codigo INTO tipo_perfil;
 
+	-- Se revisa que tengan un ID valido
 	IF NOT alcance=0
 	AND NOT estado=0 
 	AND NOT tipo_beneficio=0
