@@ -233,7 +233,7 @@ SELECT
 	TipoDePerfil.Nombre AS Perfil,
 	Beneficiario.RUTdeEmpresa,
 	Beneficiario.RUTdeRepresentante
-FROM Beneficiario,
+FROM Beneficiario, Region, TipoDePersona, TipoDeEmpresa, TipoDePerfil
 WHERE
 	Region.ID=Beneficiario.RegionDeCreacion AND
 	TipoDePersona.ID=Beneficiario.TipoDePersona AND
