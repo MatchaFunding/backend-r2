@@ -520,7 +520,6 @@ CALL CrearInstrumento(
 	TipoDeBeneficio
 	TipoDePerfil
 	EnlaceDelDetalle
-	EnlaceDeLaFoto
 	Financiador
 );
 */
@@ -549,16 +548,16 @@ BEGIN
 	DECLARE estado bigint;
 	DECLARE tipo_beneficio bigint;
 	DECLARE tipo_perfil bigint;
+	DECLARE financiador bigint;
 
 	SELECT ID FROM Region WHERE al=Nombre OR al=Codigo INTO alcance;
 	SELECT ID FROM EstadoDeFondo WHERE es=Nombre OR es=Codigo INTO estado;
 	SELECT ID FROM TipoDeBeneficio WHERE tb=Nombre OR tb=Codigo INTO tipo_beneficio;
 	SELECT ID FROM TipoDePerfil WHERE tp=Nombre OR tp=Codigo INTO tipo_perfil;
+	SELECT ID FROM Financiador WHERE fi=Nombre OR=fi=Codigo INTO financiador;
 
-	IF NOT alcance=0
-	AND NOT estado=0 
-	AND NOT tipo_beneficio=0
-        AND NOT tipo_perfil=0 
+	IF NOT alcance=0 AND NOT estado=0 AND NOT tipo_beneficio=0
+        AND NOT tipo_perfil=0 AND NOT financiador=0
 	THEN
 		INSERT INTO Instrumento (
 			Titulo,
@@ -575,7 +574,6 @@ BEGIN
 			TipoDeBeneficio,
 			TipoDePerfil,
 			EnlaceDelDetalle,
-			EnlaceDeLaFoto,
 			Financiador
 		) 
 		VALUES (
@@ -594,7 +592,7 @@ BEGIN
 			tipo_perfil,
 			ed,
 			ef,
-			fi
+			financiador
 		);
 	END IF;
 END$$
