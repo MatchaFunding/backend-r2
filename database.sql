@@ -250,12 +250,12 @@ https://www.boletaofactura.com/
 */
 CREATE TABLE Proyecto (
 	ID bigint NOT NULL AUTO_INCREMENT,
-	Titulo varchar(300) NOT NULL,
-	Descripcion varchar(500) NOT NULL,
+	Titulo varchar(500) NOT NULL,
+	Descripcion varchar(2000) NOT NULL,
 	DuracionEnMesesMinimo int NOT NULL,
 	DuracionEnMesesMaximo int NOT NULL,
 	Alcance bigint NOT NULL,
-	Area varchar(100) NOT NULL,
+	Area varchar(500) NOT NULL,
 	Beneficiario bigint NOT NULL,
 	PRIMARY KEY (ID),
 	FOREIGN KEY (Beneficiario) REFERENCES Beneficiario(ID),
@@ -290,9 +290,13 @@ https://www.volanteomaleta.com/
 CREATE TABLE Persona (
 	ID bigint NOT NULL AUTO_INCREMENT,
 	Nombre varchar(200) NOT NULL,
+	Apellido varchar(200) NOT NULL,
 	Sexo bigint NOT NULL,
 	RUT varchar(12) NOT NULL,
 	FechaDeNacimiento date NOT NULL,
+	Ocupacion varchar(1000) NOT NULL,
+	Telefono tinyint NOT NULL,
+	Correo varchar(200) NOT NULL,
 	PRIMARY KEY (ID),
 	FOREIGN KEY (Sexo) REFERENCES Sexo(ID)
 );
@@ -632,12 +636,17 @@ Clase que representa la idea para un proyecto
 CREATE TABLE Idea (
 	ID bigint NOT NULL AUTO_INCREMENT,
 	Usuario bigint NOT NULL,
+	Proyecto bigint NOT NULL,
 	Campo varchar(1000) NOT NULL,
 	Problema varchar(1000) NOT NULL,
 	Publico varchar(1000) NOT NULL,
 	Innovacion varchar(1000) NOT NULL,
+	Analisis varchar(3000) default '',
+	Oculta boolean default false,
+	FechaDeCreacion date NOT NULL,
 	PRIMARY KEY (ID),
-	FOREIGN KEY (Usuario) REFERENCES Usuario(ID)
+	FOREIGN KEY (Usuario) REFERENCES Usuario(ID),
+	FOREIGN KEY (Proyecto) REFERENCES Proyecto(ID)
 );
 
 INSERT INTO Financiador (ID,Nombre,FechaDeCreacion,RegionDeCreacion,Direccion,TipoDePersona,TipoDeEmpresa,Perfil,RUTdeEmpresa,RUTdeRepresentante)
